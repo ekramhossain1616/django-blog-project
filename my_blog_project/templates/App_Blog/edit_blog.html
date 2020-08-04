@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block title_block %} {{blog.blog_title}} {% endblock %}
+{% block body_block %}
+{% if blog.author == user %}
+<form method="POST">
+  {{form|crispy}}
+  {% csrf_token %}
+  <button type="submit" class="btn btn-success btn-sm">Update</button>
+  <a href="{% url 'App_Blog:blog_details' slug=blog.slug %}" class="btn btn-danger btn-sm">Cancel</a>
+</form>
+{% else %}
+<p>You are not allowed to view this page.</p>
+{% endif %}
+
+{% endblock %}
